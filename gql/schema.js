@@ -11,6 +11,15 @@ const typeDefs = gql`
         pass: String
         createAt: String
     }
+    type Token {
+        token: String
+    }
+    type Comentario {
+        _id: ID
+        idUsuario: Usuario
+        comentario: String
+        createAt: String
+    }
 
     #Creacion de campos personalizados
     enum RolUsuario {
@@ -26,13 +35,26 @@ const typeDefs = gql`
         correo: String!
         pass: String!
     }
+    input LoginInput {
+        correo: String!
+        pass: String!
+    }
+    input ComentarioInput {
+        comentario: String
+    }
 
     type Query {
         getUser(id: ID): Usuario
         getUsers: [Usuario]
+        getComentarios: [Comentario]
+        getComentarioUsuario: [Comentario]
+        getComentario(id: ID): Comentario
     }
     type Mutation {
         registro(input: UsuarioInput): Usuario
+        login(input: LoginInput): Token
+
+        setComentario(input: ComentarioInput): Comentario
     }
 `
 
